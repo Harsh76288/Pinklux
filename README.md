@@ -64,4 +64,10 @@
 <script src="script.js"></script>
 
 </body>
-</html>
+<section class="hero">
+  <div class="overlay">
+    <h1>💖 Welcome to Pinklux</h1>
+    <p>Fashion | Beauty | Shoes | Men</p>
+    <button>Shop Now</button>
+  </div>
+</section>
