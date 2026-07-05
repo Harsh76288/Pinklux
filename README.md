@@ -125,3 +125,20 @@
 
 </body>
 </html>
+let cartCount = 0;
+
+function addToCart() {
+  cartCount++;
+  updateCart();
+}
+
+function removeFromCart() {
+  if (cartCount > 0) {
+    cartCount--;
+    updateCart();
+  }
+}
+
+function updateCart() {
+  document.getElementById("cartCount").innerText = cartCount;
+}
