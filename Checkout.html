@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Pinklux</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🧾 Checkout Page</h1>
+</header>
+
+<section class="checkout">
+
+  <h2>Your Order</h2>
+
+  <p>Items in Cart: <span id="cartItems">0</span></p>
+
+  <h3>Billing Details</h3>
+
+  <input type="text" placeholder="Your Name"><br><br>
+  <input type="text" placeholder="Address"><br><br>
+  <input type="text" placeholder="Mobile Number"><br><br>
+
+  <button onclick="placeOrder()">Place Order</button>
+
+  <p id="msg"></p>
+
+</section>
+
+<script>
+  let cart = localStorage.getItem("cartCount") || 0;
+  document.getElementById("cartItems").innerText = cart;
+
+  function placeOrder() {
+    document.getElementById("msg").innerText =
+      "🎉 Order Placed Successfully!";
+    localStorage.setItem("cartCount", 0);
+  }
+</script>
+
+</body>
+</html>
