@@ -65,3 +65,19 @@
 
 </body>
 </html>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(135deg, #ff66b2, #ffe6f2);
+  text-align: center;
+  color: white;
+}
+
+h1 {
+  margin-top: 80px;
+  font-size: 40px;
+}
+
+p {
+  font-size: 20px;
+}
