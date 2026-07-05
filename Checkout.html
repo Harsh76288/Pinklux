@@ -1,45 +1,579 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Checkout - Pinklux</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PinkLuxFashion | Aesthetic Luxury Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ff5e8d;
+            --primary-light: #fff0f3;
+            --dark: #1a1a1a;
+            --grey: #666;
+            --light-grey: #f8f9fa;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Playfair Display', 'Segoe UI', serif;
+        }
+
+        body {
+            background-color: #fdfbfc;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Announcement Bar */
+        .announcement {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.02);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-decoration: none;
+        }
+        .logo span { color: var(--primary); }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            margin: 0 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background: var(--primary);
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 50%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            background: linear-gradient(135deg, rgba(255,240,243,0.8) 0%, rgba(255,255,255,0.4) 100%), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1920') no-repeat center center/cover;
+            background-attachment: fixed;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content span {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 13px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            line-height: 1.1;
+            margin: 15px 0 25px 0;
+            font-weight: 400;
+        }
+
+        .btn {
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 0;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            transition: var(--transition);
+            border: 1px solid var(--dark);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--dark);
+        }
+
+        /* Categories Filter */
+        .category-section {
+            padding: 80px 8% 30px 8%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 36px;
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .section-subtitle {
+            color: var(--grey);
+            font-size: 15px;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid #e0e0e0;
+            padding: 10px 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Products Grid */
+        .products-container {
+            padding: 0 8% 80px 8%;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 40px 30px;
+        }
+
+        .product-card {
+            background: white;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .img-container {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--light-grey);
+            aspect-ratio: 3/4;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .product-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .add-to-cart-overlay {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.9);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .product-card:hover .add-to-cart-overlay {
+            bottom: 0;
+        }
+
+        .product-info {
+            padding: 20px 0;
+            text-align: left;
+        }
+
+        .product-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--grey);
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .product-price {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        /* Instagram Aesthetic Feed */
+        .instagram-section {
+            background-color: var(--primary-light);
+            padding: 80px 8%;
+            text-align: center;
+        }
+
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 900px) { .insta-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .insta-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .insta-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .insta-item:hover img { transform: scale(1.1); }
+
+        /* Contact & Newsletter */
+        .newsletter {
+            padding: 80px 8%;
+            text-align: center;
+            background: white;
+        }
+
+        .newsletter input {
+            padding: 15px 25px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #e0e0e0;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .newsletter button {
+            padding: 15px 35px;
+            background: var(--dark);
+            color: white;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-left: -5px;
+            transition: var(--transition);
+        }
+
+        .newsletter button:hover { background: var(--primary); }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: #a5a5a5;
+            padding: 60px 8% 30px 8%;
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #a5a5a5;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: var(--transition);
+        }
+
+        .footer-col a:hover { color: white; }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <h1>🧾 Checkout Page</h1>
-</header>
+    <div class="announcement">✨ Use Code: LUXPINK for 15% Off | Free International Shipping ✨</div>
 
-<section class="checkout">
+    <header>
+        <a href="#" class="logo">Pink<span>Lux</span></a>
+        <nav>
+            <a href="#" class="active">Home</a>
+            <a href="#shop">Shop</a>
+            <a href="#insta">Editorial</a>
+            <a href="#newsletter">Join Us</a>
+        </nav>
+        <div class="header-icons">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="cart-icon" onclick="alert('Your Aesthetic Cart is Empty!')">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <div class="cart-count" id="cart-count">0</div>
+            </div>
+        </div>
+    </header>
 
-  <h2>Your Order</h2>
+    <section class="hero">
+        <div class="hero-content">
+            <span>The New Standard of Luxury</span>
+            <h1>Curated Elegance For The Modern Era</h1>
+            <a href="#shop" class="btn">Explore Collections</a>
+        </div>
+    </section>
 
-  <p>Items in Cart: <span id="cartItems">0</span></p>
+    <section class="category-section" id="shop">
+        <h2 class="section-title">The Collections</h2>
+        <p class="section-subtitle">Carefully designed and selected items for your luxury lifestyle.</p>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterProducts('all', this)">All Pieces</button>
+            <button class="filter-btn" onclick="filterProducts('girls', this)">Girls Fashion</button>
+            <button class="filter-btn" onclick="filterProducts('boys', this)">Boys Fashion</button>
+            <button class="filter-btn" onclick="filterProducts('beauty', this)">Beauty Products</button>
+            <button class="filter-btn" onclick="filterProducts('shoes', this)">Luxury Shoes</button>
+        </div>
+    </section>
 
-  <h3>Billing Details</h3>
+    <main class="products-container">
+        <div class="grid" id="product-grid">
+            <!-- 50 Products will be injected here automatically by JavaScript -->
+        </div>
+    </main>
 
-  <input type="text" placeholder="Your Name"><br><br>
-  <input type="text" placeholder="Address"><br><br>
-  <input type="text" placeholder="Mobile Number"><br><br>
+    <section class="instagram-section" id="insta">
+        <h2 class="section-title">On The Gram</h2>
+        <p class="section-subtitle">Tag @PinkLuxFashion to be featured in our luxury lookbook</p>
+        <div class="insta-grid">
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400" alt="Insta"></div>
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400" alt="Insta"></div>
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400" alt="Insta"></div>
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=400" alt="Insta"></div>
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=400" alt="Insta"></div>
+            <div class="insta-item"><img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400" alt="Insta"></div>
+        </div>
+    </section>
 
-  <button onclick="placeOrder()">Place Order</button>
+    <section class="newsletter" id="newsletter">
+        <h2 class="section-title">The Inner Circle</h2>
+        <p class="section-subtitle">Subscribe to receive private sales, new collections & dynamic style updates.</p>
+        <div style="margin-top: 30px;">
+            <input type="email" placeholder="Enter your email address...">
+            <button type="button">Subscribe</button>
+        </div>
+    </section>
 
-  <p id="msg"></p>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>About PinkLux</h4>
+                <p>An aesthetic destination for premium curated luxury fashion, beauty basics, and premium footwear tailored for the modern generation.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Bespoke Service</h4>
+                <a href="#">Order Tracking</a>
+                <a href="#">Returns & Exchanges</a>
+                <a href="#">Size Guide</a>
+                <a href="#">Contact Concierge</a>
+            </div>
+            <div class="footer-col">
+                <h4>The Collections</h4>
+                <a href="#shop">Girls Editorial</a>
+                <a href="#shop">Boys Atelier</a>
+                <a href="#shop">Beauty Secrets</a>
+                <a href="#shop">Footwear Vault</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 PinkLuxFashion. Designed for Ultimate Luxury. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-</section>
+    <!-- JS to automatically create 50 Aesthetic Products -->
+    <script>
+        const categories = ['girls', 'boys', 'beauty', 'shoes'];
+        
+        // High quality images from Unsplash for realistic luxury look
+        const sampleImages = {
+            girls: [
+                'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=500',
+                'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500',
+                'https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=500'
+            ],
+            boys: [
+                'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=500',
+                'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=500',
+                'https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=500'
+            ],
+            beauty: [
+                'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500',
+                'https://images.unsplash.com/photo-1608248597481-496100c80836?w=500',
+                'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=500'
+            ],
+            shoes: [
+                'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500',
+                'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=500',
+                'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=500'
+            ]
+        };
 
-<script>
-  let cart = localStorage.getItem("cartCount") || 0;
-  document.getElementById("cartItems").innerText = cart;
+        const adjectives = ['Premium', 'Luxury', 'Minimalist', 'Aesthetic', 'Vintage', 'Silk', 'Classic', 'Velvet', 'Editorial', 'Satin', 'Monochrome', 'Organic'];
+        const items = {
+            girls: ['Blazer', 'Dress', 'Trenchcoat', 'Corset Top', 'Blouse', 'Palazzo', 'Knit Sweater'],
+            boys: ['Suiting Jacket', 'Oversized Shirt', 'Chino Trousers', 'Turtleneck', 'Designer Hoodie', 'Casual Blazer'],
+            beauty: ['Glow Serum', 'Matte Lipstick', 'Hydrating Mist', 'Luxury Fragrance', 'Clay Mask', 'Nude Palette'],
+            shoes: ['Leather Boots', 'Stiletto Heels', 'Loafers', 'Aesthetic Sneakers', 'Suede Mules', 'Ankle Boots']
+        };
 
-  function placeOrder() {
-    document.getElementById("msg").innerText =
-      "🎉 Order Placed Successfully!";
-    localStorage.setItem("cartCount", 0);
-  }
-</script>
+        // Generate 50 realistic products
+        const products = [];
+        for (let i = 1; i <= 50; i++) {
+            // Pick a category randomly or cyclically to keep counts even
+            const cat = categories[i % categories.length];
+            const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const name = items[cat][Math.floor(Math.random() * items[cat].length)];
+            const imgArr = sampleImages[cat];
+            const img = imgArr[Math.floor(Math.random() * imgArr.length)];
+            const price = (Math.floor(Math.random() * 150) + 49).toFixed(2);
 
+            products.push({
+                id: i,
+                title: `${adj} ${name}`,
+                category: cat,
+                price: `$${price}`,
+                image: img
+            });
+        }
+
+        let cartCount = 0;
+        function addToCart() {
+            cartCount++;
+            document.getElementById('cart-count').innerText = cartCount;
+        }
+
+        // Render products to the grid
+        function renderProducts(productsToDisplay) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+            
+            productsToDisplay.forEach(product => {
+                const card = document.createElement('div');
+                card.className = `product-card ${product.category}`;
+                card.innerHTML = `
+                    <div class="img-container">
+                        <img src="${product.image}" alt="${product.title}">
+                        <div class="add-to-cart-overlay" onclick="addToCart()">Add To Bag</div>
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">${product.category}</p>
+                        <h3 class="product-title">${product.title}</h3>
+                        <p class="product-price">${product.price}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter Functionality
+        function filterProducts(category, button) {
+            // Update Active Button State
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        // Initial Render
+        renderProducts(products);
+    </script>
 </body>
 </html>
