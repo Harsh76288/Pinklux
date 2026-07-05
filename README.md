@@ -57,3 +57,71 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pinklux Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>💖 Pinklux Store</h1>
+
+  <div class="cart">
+    🛒 Cart: <span id="cartCount">0</span>
+  </div>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Clothes</a>
+    <a href="#">Shoes</a>
+    <a href="#">Beauty</a>
+    <a href="#">Men</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Trendy Fashion & Beauty Collection</h2>
+  <button>Shop Now</button>
+</section>
+
+<section class="products">
+
+  <h2>🔥 Products</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      👗 Pink Dress<br>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      👟 Sneakers<br>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      💄 Lipstick<br>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <div class="card">
+      🧔 Men's Outfit<br>
+      <button onclick="addToCart()">Add to Cart</button>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  <p>© 2026 Pinklux 💖</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
