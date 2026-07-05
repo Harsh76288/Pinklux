@@ -142,3 +142,8 @@ function removeFromCart() {
 function updateCart() {
   document.getElementById("cartCount").innerText = cartCount;
 }
+<div class="card">
+  👗 Pink Dress<br>
+  <button onclick="addToCart()">Add to Cart</button>
+  <button onclick="removeFromCart()">Remove</button>
+</div>
